@@ -77,7 +77,7 @@ class CardManager extends Component {
         const {fetching = false} = this.props;
         return (
             <div className="card">
-                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                <form className="card-form" onSubmit={(e)=>this.handleSubmit(e)}>
                     <input name="title" 
                         onChange={(e)=>this.handleCardChange(e)}
                         placeholder="Card Name"
@@ -90,7 +90,7 @@ class CardManager extends Component {
                         onChange={(e)=>this.handleCardChange(e)}
                         placeholder="Card background URL"
                     />
-                    <input type="submit"/>
+                    <input disabled={fetching} type="submit" value="Add"/>
                 </form>
                 <button disabled={fetching} onClick={()=>this.fetchDogs()}>Dog Cards</button>
                 <button disabled={fetching} onClick={()=>this.fetchHeros()}>Hero Cards</button>
