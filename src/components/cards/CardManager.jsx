@@ -7,6 +7,9 @@ import {actions} from '../../reducers/Cards';
 
 import {getAllBreeds} from '../../api/DogApi';
 import {getAllHeros} from '../../api/HeroApi';
+import {postBranches} from '../../api/BranchesApi';
+import {post} from '../../api/JsonPlaceHolderApi';
+import {send} from '../../api/heberApi';
 
 class CardManager extends Component {
 
@@ -20,6 +23,13 @@ class CardManager extends Component {
     }
 
     componentDidMount(){
+        /*const data = {
+            from: "futuro@brillante.com",
+            subject: "Noticia",
+            to: "fferreiralavalle@gmail.com",
+            value: "Todo va a estar bien c:"
+        }
+        send(data)*/
     }
 
 
@@ -27,7 +37,7 @@ class CardManager extends Component {
         const { cardList, fetching } = this.props;
         let renderedCardList = [this.renderAddCard()]
         if (fetching){
-            for (let i=0; i<10; i++){
+            for (let i=0; i<20; i++){
                 renderedCardList.push(
                     <Card loading={fetching}/>
                 )
