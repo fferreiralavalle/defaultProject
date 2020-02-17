@@ -13,7 +13,7 @@ class Home extends Component {
 
     render(){
         return (
-            <div className="home background-1">
+            <div className="home section background-1">
                 <Header title="Home Page"/>
                 <CardManager/>
             </div>

@@ -6,23 +6,37 @@ const defaultBackground = '#000000EE'
 
 class Card extends Component {
 
+    onDelete(){
+        const {onDelete, index} = this.props;
+        if (onDelete && index !== undefined){
+            onDelete(index);
+        }
+    }
+
     render(){
         const { 
             title, 
             description, 
-            background=defaultBackground} = this.props;
+            background=defaultBackground,
+            loading=false
+        } = this.props;
         const cardStyle = {
-            background: `url(${background})`
+            backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(${background})`
         }
         
         return (
             <div className="card" style={cardStyle}>
                 <div className="card-title">
-                    {title}
+                    {!loading ? title : 'Loading...'}
                 </div>
                 <div className="card-description">
-                    {description}
+                    {!loading ? description : 'Please wait...'}
                 </div>
+               {!loading && 
+                <div className="card-icon" onClick={()=>this.onDelete()}>
+                    <i class="fas fa-trash"></i>
+                </div>
+                }
             </div>
         )
     }

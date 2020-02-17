@@ -10,6 +10,7 @@ import reducer from './reducers/Index';
 
 import './App.css';
 import Home from './pages/home/Home';
+import Info from './pages/Info/Info';
 
 
 const store = createStore(reducer)
@@ -19,7 +20,10 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-            <Route path="/">
+            <Route path="/info">
+              <Info />
+            </Route>
+            <Route exact path="/">
               <Home />
             </Route>
           </Switch>

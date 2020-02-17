@@ -5,6 +5,9 @@ import Card from './Card';
 import './Cards.css'
 import {actions} from '../../reducers/Cards';
 
+import {getAllBreeds} from '../../api/DogApi';
+import {getAllHeros} from '../../api/HeroApi';
+
 class CardManager extends Component {
 
     constructor(props){
@@ -16,21 +19,37 @@ class CardManager extends Component {
         };
     }
 
+    componentDidMount(){
+    }
+
+
     renderCardList(){
-        const { cardList } = this.props;
-        const renderedCardList = [
-            this.renderAddCard(),
-            ...cardList.map(c => {
-                const title = c.title
-                const description = c.description
-                const background = c.background
-                return (
-                    <Card 
-                        title={title}
-                        description={description}
-                        background={background}
-                    />)
-            })]
+        const { cardList, fetching } = this.props;
+        let renderedCardList = [this.renderAddCard()]
+        if (fetching){
+            for (let i=0; i<10; i++){
+                renderedCardList.push(
+                    <Card loading={fetching}/>
+                )
+            }
+        }
+        else{
+            renderedCardList.push(
+                ...cardList.map((c,i) => {
+                    const title = c.title
+                    const description = c.description
+                    const background = c.background
+                    return (
+                        <Card 
+                            title={title}
+                            description={description}
+                            background={background}
+                            index={i}
+                            onDelete={(i)=>this.handleDelete(i)}
+                        />)
+                })
+                )
+        }
         return (renderedCardList)
     }
 
@@ -50,24 +69,49 @@ class CardManager extends Component {
         this.props.dispatch(actions.cardAdd({title,description,background}));
     }
 
+    handleDelete(index){
+        this.props.dispatch(actions.cardRemove(index));
+    }
+
     renderAddCard(){
+        const {fetching = false} = this.props;
         return (
-            <form className="card" onSubmit={(e)=>this.handleSubmit(e)}>
-                <input name="title" 
-                    onChange={(e)=>this.handleCardChange(e)}
-                    placeholder="Card Name"
-                />
-                <input name="description" 
-                    onChange={(e)=>this.handleCardChange(e)}
-                    placeholder="Card Description"
-                />
-                <input name="background" 
-                    onChange={(e)=>this.handleCardChange(e)}
-                    placeholder="Card background URL"
-                />
-                <input type="submit"/>
-            </form>
+            <div className="card">
+                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                    <input name="title" 
+                        onChange={(e)=>this.handleCardChange(e)}
+                        placeholder="Card Name"
+                    />
+                    <input name="description" 
+                        onChange={(e)=>this.handleCardChange(e)}
+                        placeholder="Card Description"
+                    />
+                    <input name="background" 
+                        onChange={(e)=>this.handleCardChange(e)}
+                        placeholder="Card background URL"
+                    />
+                    <input type="submit"/>
+                </form>
+                <button disabled={fetching} onClick={()=>this.fetchDogs()}>Dog Cards</button>
+                <button disabled={fetching} onClick={()=>this.fetchHeros()}>Hero Cards</button>
+            </div>
         )
+    }
+
+    fetchDogs(){
+        const {fetching} = this.props;
+        if (!fetching){
+            this.props.dispatch(actions.cardsFetch())
+            getAllBreeds((cards)=>this.props.dispatch(actions.cardsSet(cards)))
+        }
+    }
+
+    fetchHeros(){
+        const {fetching} = this.props;
+        if (!fetching){
+            this.props.dispatch(actions.cardsFetch())
+            getAllHeros((cards)=>this.props.dispatch(actions.cardsSet(cards)))
+        }
     }
 
     render(){
@@ -81,6 +125,7 @@ class CardManager extends Component {
 
 const mapStateToProps = state => ({
       cardList: state.cards.cardList,
+      fetching: state.cards.fetching,
   })
   
 

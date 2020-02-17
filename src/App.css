@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.background-1 {
+  --c : rgba(255,255,255,0.7);
+  --t : transparent;
+  background-image:
+  repeating-linear-gradient(45deg, var(--t) 0, var(--t) 32px, var(--c) 32px, var(--c) 44px, var(--t) 44px, var(--t) 56px, var(--c) 56px, var(--c) 68px, var(--t) 0),
+  repeating-linear-gradient(-45deg, var(--t) 0, var(--t) 32px, var(--c) 32px, var(--c) 44px, var(--t) 44px, var(--t) 56px, var(--c) 56px, var(--c) 68px, var(--t) 0),
+  linear-gradient(to bottom left, #FC354C, #0ABFBC);
+}
+
+.section{
+  padding-top: 80px;
+  padding: 80px 2.5%;
+  min-height: 100vh;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +51,4 @@
     transform: rotate(360deg);
   }
 }
+
