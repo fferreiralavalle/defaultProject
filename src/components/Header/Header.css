@@ -1,0 +1,59 @@
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.9)
+}
+.header-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.header-main{
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.header-burger {
+    background-image: url('../../assets/images/hamburger_icon.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 50px;
+    cursor: pointer;
+}
+
+.haader-drop-down {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    height: 0;
+    overflow-y: hidden;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.9);
+    transition: opacity 0.5s, height 0.5s;
+}
+.haader-drop-down.active{
+    height: 80px;
+}
+
+.haader-drop-down a{
+    color: black;
+    font-size: 25px;
+    text-decoration: none;
+    transition: font-size 0.5s, margin-left 0.5s;
+}
+
+.haader-drop-down a:hover{
+    margin-left: 10px;
+}
